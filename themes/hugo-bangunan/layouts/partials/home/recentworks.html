@@ -1,0 +1,25 @@
+<div class="thumbnails recentworks">
+    <div class="lead text-center">
+        {{ .Content }}
+    </div>
+    {{ $data := .Resources.GetMatch .Params.file | transform.Unmarshal }} 
+    {{ range $area := $data }}
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
+            <div class="panel panel-cta">
+                <div class="panel-body">
+                    <span class="text-center">
+                    {{ range .items }}
+                        {{ if .image }}
+                            <img src="{{ .image }}" alt="{{ .name }}" class="img-icon">
+                        {{ else if .icon }}
+                            <i class="{{ .icon }} fa-8x" style="color: #ffb603; margin-bottom: 20px; margin-top: 10px;"></i>
+                        {{ end }}
+                        <h4>{{ .name }}</h4>
+                        <p>{{ .description }}</p>
+                    {{ end }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    {{ end }}
+</div>

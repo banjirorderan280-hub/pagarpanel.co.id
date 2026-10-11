@@ -1,0 +1,162 @@
+baseURL = "https://pagarpanel.co.id"
+languageCode = "en"
+title = "PAGARPANEL.CO.ID | Tempat terbaik untuk mendapatkan solusi pagar panel beton berkualitas tinggi"
+theme = "hugo-bangunan"
+summaryLength = "35"
+paginate = "10"
+
+[permalinks]
+    jakarta =":slug"
+[params]
+    name = "PAGARPANEL.CO.ID"
+    description = "Beton kuat, tahan lama, dan cocok untuk berbagai proyek konstruksi"
+    email = "pagarpanel24@gmail.com"
+    phone = "0821-2440-2626"
+    telepon = "//+6282124402626"
+    whatsapp = "//api.whatsapp.com/send?phone=6282124402626&text=*Halo pagarpanel.co.id*%20%3A"
+    address = "Jalan Raya Cilebut Jembatan II Rt 01 RW 03, Kel. Sukaresmi, Kec. Tanah Sareal, Kota Bogor 16165, Jawa Barat"
+    year = 2024
+    avatar = "/images/pagarpanel-pavicon.png"
+    avatarclass = "circle"
+    background = "/images/pagarpanel-bg.png"
+    banner = "/images/pagarpanel-bg.png"
+    favicon = "/images/pagarpanel-pavicon.png"
+    logo = "/images/pagarpanel-logo-putih.png"
+    logoclass = "icon float-left"
+    DateForm = "2 January 2006"
+    author = "Saefullah"
+    tocMinWordCount = 500
+
+    checkoutWa = "6282124402626"
+    promoEndDate = "2024-12-31T23:59:59"
+
+    showSubheader = true
+    showRecentWorks = true
+    enableNextPrevPages = true
+
+    showFooterContact = true
+    showFooterTextWidget = true
+    enableWhatApps = true
+    enableTelepon = true
+
+ [[params.testimonials]]
+  name = "Andrew"
+  avatar = "/images/admin/avatar1.png"
+  status = "Online"
+  message = "{Pagar|Dinding} {panel|blok} {beton|semen} dari {perusahaan|vendor|penyedia} ini {sangat|amat|begitu} {kokoh|kuat|tangguh} dan {tahan lama|awet|berdaya tahan tinggi}. {Proses|Tahap} {pemasangan|instalasi} juga {sangat|amat} {cepat|singkat|efisien} dan {rapi|teratur|tersusun}. Kami {sangat|amat} {puas|senang|gembira} dengan {hasilnya|output-nya|produknya}! 🔨"
+  response = "Kami {senang|gembira|bahagia} {mendengarnya|mengetahuinya}. {Terima kasih|Kami berterima kasih} atas {kepercayaan|loyalitas|dukungan} {Anda|Bapak/Ibu}."
+
+  [[params.testimonials]]
+  name = "Sarah J"
+  avatar = "/images/admin/avatar2.png"
+  status = "Online"
+  message = "Kualitas {U-ditch|saluran beton|beton drainase} yang kami {beli|pesan|dapatkan} {sangat|amat} {baik|bagus|berkualitas}, {sesuai|cocok|pas} dengan {spesifikasi|standar|kriteria} yang kami {butuhkan|perlukan|inginkan}. {Sangat|Benar-benar|Sungguh} {direkomendasikan|disarankan} untuk {proyek|pembangunan} {saluran|drainase|pembuangan air}. 💧"
+  response = "Kami {sangat|amat} {senang|gembira} {mendengar|mengetahui} {berita|informasi} ini. {Terima kasih|Kami berterima kasih}."
+
+  [[params.testimonials]]
+  name = "Kang Emil"
+  avatar = "/images/admin/avatar3.png"
+  status = "Online"
+  message = "{Pagar|Dinding} {panel|blok} {beton|semen} yang {dipasang|diinstal|terpasang} di {proyek|konstruksi} kami {sangat|amat|begitu} {membantu|bermanfaat} dalam {mengurangi|menurunkan|meminimalkan} {kebisingan|suara berlebih|gangguan suara}. {Terima kasih|Kami berterima kasih}! 📈"
+  response = "{Terima kasih|Kami berterima kasih} atas {kepercayaan|dukungan|kesetiaan} {Anda|Bapak/Ibu}. Kami {senang|gembira|bahagia} {mendengar|mengetahui} {proyek|pembangunan} Anda {berhasil|sukses|lancar}."
+
+  [[params.testimonials]]
+  name = "Sophia L"
+  avatar = "/images/admin/avatar4.png"
+  status = "Online"
+  message = "{Penggunaan|Pemanfaatan} {pagar|dinding} {panel|blok} {beton|semen} dari {perusahaan|vendor|penyedia} ini {sangat|amat} {memudahkan|membantu|memperlancar} kami dalam {membangun|mendirikan|membentuk} {pagar|dinding pembatas} untuk {area|zona} {industri|pabrik|komersial}. {Proses|Tahap} {pengiriman|distribusi} juga {tepat waktu|sesuai jadwal|tidak terlambat}. 🚚"
+  response = "{Senang|Gembira|Bahagia} {mendengar|mengetahui} bahwa {layanan|service} kami {bermanfaat|membantu|berguna} bagi Anda. {Terima kasih|Kami berterima kasih}."
+
+  [[params.testimonials]]
+  name = "Rina"
+  avatar = "/images/admin/avatar5.png"
+  status = "Online"
+  message = "{Pemasangan|Instalasi} {U-ditch|saluran beton|beton drainase} untuk {saluran|drainase|pembuangan air} kami {berjalan|terselenggara|dilaksanakan} {lancar|dengan baik|tanpa kendala} dan {hasilnya|output-nya} {sangat|amat} {memuaskan|baik|bagus}. {Tidak ada|Tanpa} {kebocoran|rembesan|kerusakan} {sama sekali|sedikit pun|dalam sistem}. 🌧️"
+  response = "Kami {sangat|amat} {menghargai|mengapresiasi} {feedback|umpan balik} Anda. {Terima kasih|Kami berterima kasih} telah {mempercayakan|menyerahkan} {proyek|pekerjaan} Anda kepada kami."
+
+  [[params.testimonials]]
+  name = "Dadang"
+  avatar = "/images/admin/avatar6.png"
+  status = "Online"
+  message = "{Produk|Barang} {pagar|dinding} {panel|blok} {beton|semen} yang kami {beli|dapatkan|pesan} {sangat|amat} {berkualitas|baik|bagus}. {Pemasangannya|Instalasinya} {mudah|gampang|praktis} dan {hasilnya|output-nya} {rapi|tertata|teratur}. Kami {sangat|amat} {puas|senang|gembira} dengan {pelayanannya|layanannya|service-nya}. 👍"
+  response = "Kami {bangga|senang|gembira} bisa {membantu|mendukung|memfasilitasi} {proyek|pekerjaan} Anda {berjalan|terselenggara} {lancar|dengan baik|sukses}. {Terima kasih|Kami berterima kasih} atas {ulasan|review|feedback} {positif|baik} {Anda|Bapak/Ibu}."
+
+  [[params.promoItems]]
+  name = "Pagar Panel K-225"
+  normalPrice = "Rp 250.000 per m²"
+  promoPrice = "Rp 220.000 per m²"
+
+  [[params.promoItems]]
+  name = "Pagar Panel K-250"
+  normalPrice = "Rp 280.000 per m²"
+  promoPrice = "Rp 250.000 per m²"
+
+  [[params.promoItems]]
+  name = "Pagar Panel K-300"
+  normalPrice = "Rp 310.000 per m²"
+  promoPrice = "Rp 280.000 per m²"
+
+  [[params.promoItems]]
+  name = "Pagar Panel K-350"
+  normalPrice = "Rp 330.000 per m²"
+  promoPrice = "Rp 300.000 per m²"
+
+  [[params.promoItems]]
+  name = "Pagar Panel K-400"
+  normalPrice = "Rp 360.000 per m²"
+  promoPrice = "Rp 330.000 per m²"
+
+  [[params.promoItems]]
+  name = "U-ditch Beton K-225"
+  normalPrice = "Rp 250.000 per m²"
+  promoPrice = "Rp 220.000 per m²"
+
+  [[params.promoItems]]
+  name = "U-ditch Beton K-250"
+  normalPrice = "Rp 280.000 per m²"
+  promoPrice = "Rp 250.000 per m²"
+
+  [[params.promoItems]]
+  name = "U-ditch Beton K-300"
+  normalPrice = "Rp 310.000 per m²"
+  promoPrice = "Rp 280.000 per m²"
+
+  [[params.promoItems]]
+  name = "U-ditch Beton K-350"
+  normalPrice = "Rp 330.000 per m²"
+  promoPrice = "Rp 300.000 per m²"
+
+  [[params.promoItems]]
+  name = "U-ditch Beton K-400"
+  normalPrice = "Rp 360.000 per m²"
+  promoPrice = "Rp 330.000 per m²"
+
+[[menu.main]]
+    name = "home"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "Panel Beton"
+    url = "/categories/pagar/"
+    weight = 5
+
+[[menu.main]]
+    name = "Uditch"
+    url = "/categories/uditch/"
+    weight = 5
+
+[[menu.main]]
+    name = "Box Culvert"
+    url = "/categories/culvert/"
+    weight = 5
+
+[[menu.main]]
+    name = "Promo"
+    url = "/promo/"
+    weight = 5
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 5
+    ordered = false

@@ -1,0 +1,23 @@
+{
+  "name": "pagarpanel.co.id",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "node process-spintax.js",
+    "build": "hugo --minify && npm run compress-sitemap",
+    "start": "npm run prebuild && hugo server",
+    "compress-sitemap": "node compress-sitemap.js",
+    "recycle": "node recycle-posts.js",
+    "build:recycle": "npm run recycle && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "toml": "^3.0.0",
+    "js-yaml": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "axios": "^0.21.1"
+  }
+}

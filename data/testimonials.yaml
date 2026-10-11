@@ -1,0 +1,58 @@
+testimonials:
+  - name: Fajar
+    avatar: /images/admin/avatar1.png
+    status: Online
+    rating: 5
+    message: >-
+      Dinding blok beton dari penyedia ini amat tangguh dan awet. Proses
+      pemasangan juga sangat singkat dan rapi. Kami sangat puas dengan
+      output-nya!
+    response: Kami bahagia mengetahuinya. Terima kasih atas dukungan Bapak/Ibu.
+  - name: Dewi
+    avatar: /images/admin/avatar2.png
+    status: Online
+    rating: 5
+    message: >-
+      Kualitas U-ditch yang kami dapatkan amat bagus, pas dengan standar yang
+      kami butuhkan. Benar-benar direkomendasikan untuk pembangunan pembuangan
+      air.
+    response: Kami amat senang mendengar informasi ini. Terima kasih.
+  - name: Ahmad
+    avatar: /images/admin/avatar3.png
+    status: Online
+    rating: 4
+    message: >-
+      Pagar blok beton yang terpasang di proyek kami begitu membantu dalam
+      mengurangi suara berlebih. Terima kasih!
+    response: >-
+      Terima kasih atas kepercayaan Bapak/Ibu. Kami gembira mendengar proyek
+      Anda berhasil.
+  - name: Diah
+    avatar: /images/admin/avatar4.png
+    status: Online
+    rating: 4
+    message: >-
+      Penggunaan dinding panel beton dari penyedia ini amat membantu kami dalam
+      membentuk dinding pembatas untuk zona industri. Proses distribusi juga
+      tepat waktu.
+    response: Senang mengetahui bahwa layanan kami berguna bagi Anda. Terima kasih.
+  - name: Lina
+    avatar: /images/admin/avatar5.png
+    status: Online
+    rating: 4
+    message: >-
+      Pemasangan saluran beton untuk saluran kami berjalan lancar dan output-nya
+      sangat bagus. Tidak ada kerusakan sama sekali.
+    response: >-
+      Kami amat menghargai feedback Anda. Kami berterima kasih telah
+      mempercayakan proyek Anda kepada kami.
+  - name: Dadang
+    avatar: /images/admin/avatar6.png
+    status: Online
+    rating: 4
+    message: >-
+      Barang pagar panel beton yang kami dapatkan sangat baik. Instalasinya
+      gampang dan hasilnya tertata. Kami sangat puas dengan layanannya.
+    response: >-
+      Kami gembira bisa membantu pekerjaan Anda berjalan dengan baik. Kami
+      berterima kasih atas feedback positif Anda.

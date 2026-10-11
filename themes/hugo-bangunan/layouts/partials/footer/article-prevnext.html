@@ -1,0 +1,20 @@
+<div class="article-nextprev">
+  <div class="next-post">
+  	<ul class="pagination">
+  		<li class="page-item">
+      {{ if .NextInSection }}
+          <a class="link-reverse" href="{{ .NextInSection.Permalink }}?ref=footer">« Post Sebelumnya</a>
+      {{ end }}
+      	</li>
+      </ul>
+ </div>
+ <div class="previous-post">
+ 	<ul class="pagination">
+ 		<li class="page-item">
+      {{ if .PrevInSection }}
+          <a class="link-reverse" href="{{ .PrevInSection.Permalink }}?ref=footer">Berikutnya »</a>
+      {{ end }}
+      	</li>
+      </ul>
+  </div>
+</div>

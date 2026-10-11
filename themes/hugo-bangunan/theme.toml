@@ -1,0 +1,12 @@
+name = "Hugo Bangunan"
+license = "MIT"
+licenselink = "https://github.com/"
+description = "Hugo bangunan theme"
+homepage = "https://bangunan.co"
+tags = ["blog","responsive","personal","portfolio","bootstrap","font awesome","projects","creative","landing page","product","white"]
+features = ["blog","responsive","personal","portfolio","bootstrap","font awesome","projects","creative","landing page","product","white"]
+min_version = "0.68.3"
+
+[author]
+  name = "K. Yaman"
+  homepage = "https://bangunan.co/"

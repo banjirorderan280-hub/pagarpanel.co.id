@@ -1,0 +1,50 @@
+{{ $current := . }}
+{{ $related := where (where .Site.RegularPages "Section" .Section) "Permalink" "!=" $current.Permalink }}
+{{ $related := $related | shuffle | first 2 }}
+{{ if $related }}
+<div class="related-posts">
+  <h2>Artikel Terkait</h2>
+  <div class="related-grid">
+    {{ range $related }}
+      {{/* Cari featured image */}}
+      {{ $img := "" }}
+      {{ if .Params.featured_image }}
+        {{ $img = .Params.featured_image }}
+      {{ else if .Params.image }}
+        {{ $img = .Params.image }}
+      {{ else }}
+        {{ $imgs := findRE "<img.*?src=\"(.*?)\".*?>" .Content }}
+        {{ if gt (len $imgs) 0 }}
+          {{ $img = index $imgs 0 | replaceRE "<img.*?src=\"(.*?)\".*?>" "$1" }}
+        {{ end }}
+      {{ end }}
+
+      <article class="related-card">
+        <a href="{{ .Permalink }}" class="related-card-img">
+          {{ if $img }}
+            <img src="{{ $img }}" alt="{{ .Title }}" loading="lazy">
+          {{ else }}
+            <div class="related-card-img-placeholder">
+              <i class="fas fa-image"></i>
+            </div>
+          {{ end }}
+        </a>
+        <div class="related-card-body">
+          <div class="related-card-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format "2 January 2006" }}
+            </time>
+          </div>
+          <h4 class="related-card-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h4>
+          <p class="related-card-excerpt">
+            {{ or .Params.description (.Summary | plainify) }}
+          </p>
+          <a href="{{ .Permalink }}" class="related-card-readmore">Baca Selengkapnya</a>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

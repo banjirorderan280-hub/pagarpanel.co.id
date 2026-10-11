@@ -1,0 +1,57 @@
+{{ define "main"}}
+  <main id="main">
+    <div class="container">
+      {{ if .Site.Params.showSubheader }}
+        {{ partial "home/subheader.html" . }}
+      {{ end }}
+
+      {{ range .Site.Sections }}
+        {{ range .Sections.ByWeight }}
+          {{ $stype := .Type}}
+          {{ if (or (and (eq $stype "service") (.Site.Params.showServices))
+                    (and (eq $stype "recentwork") (.Site.Params.showRecentWorks))
+                    (eq $stype "single")) }}
+               <div class="row section featured topspace">
+                <div class="container">
+                 <h2 class="section-title">
+                   <span>{{.Title}}</span>
+                 </h2>
+               {{ if eq $stype "recentwork" }}
+                 {{ partial "home/recentworks.html" . }}
+               {{ else if eq $stype "single"  }}
+                 {{ partial "home/single.html" . }}
+               {{ end }}
+              </div>
+          </div>  <!-- /section -->
+        {{ end }}
+        {{ end }}
+      {{ end }}
+      <section class="row section featured topspace">
+        <div class="container">
+          <h2 class="section-title"><span>Apa Kata Klien Kami</span></h2>
+          <div class="testimonial-slider">
+            {{ range .Site.Data.testimonials.testimonials }}
+              <div class="whatsapp-chat">
+                <div class="chat-header">
+                  <img src="{{ .avatar }}" alt="{{ .name }} Avatar" class="avatar">
+                  <div class="chat-info">
+                    <h3>{{ .name }}</h3>
+                    <p>{{ .status }}</p>
+                  </div>
+                </div>
+                <div class="chat-body">
+                  <div class="message">
+                    <p>{{ .message }}</p>
+                  </div>
+                  <div class="respond">
+                    <p>{{ .response }}</p>
+                  </div>
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      </section>
+    </div>  <!-- /container -->
+  </main>
+{{ end }}

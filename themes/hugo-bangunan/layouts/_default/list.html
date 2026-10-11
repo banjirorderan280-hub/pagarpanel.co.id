@@ -1,0 +1,61 @@
+{{ define "main" }}
+<main id="main">
+  <div class="container">
+    <div class="row topspace">
+      <div class="col-sm-10 col-sm-offset-1">
+
+        <div class="list-grid">
+          {{ range .Paginator.Pages }}
+            {{/* Cari featured image: dari front matter atau gambar pertama di konten */}}
+            {{ $img := "" }}
+            {{ if .Params.featured_image }}
+              {{ $img = .Params.featured_image }}
+            {{ else if .Params.image }}
+              {{ $img = .Params.image }}
+            {{ else }}
+              {{ $imgs := findRE "<img.*?src=\"(.*?)\".*?>" .Content }}
+              {{ if gt (len $imgs) 0 }}
+                {{ $img = index $imgs 0 | replaceRE "<img.*?src=\"(.*?)\".*?>" "$1" }}
+              {{ end }}
+            {{ end }}
+
+            <article class="list-card">
+              <a href="{{ .Permalink }}" class="list-card-img">
+                {{ if $img }}
+                  <img src="{{ $img }}" alt="{{ .Title }}" loading="lazy">
+                {{ else }}
+                  <div class="list-card-img-placeholder">
+                    <i class="fas fa-image"></i>
+                  </div>
+                {{ end }}
+              </a>
+              <div class="list-card-body">
+                <div class="list-card-meta">
+                  <time datetime="{{ .Date.Format "2006-01-02" }}">
+                    {{ .Date.Format "2 January 2006" }}
+                  </time>
+                </div>
+                <h2 class="list-card-title">
+                  <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="list-card-excerpt">
+                  {{ or .Params.description (.Summary | plainify) }}
+                </p>
+                <a href="{{ .Permalink }}" class="list-card-readmore">Selengkapnya</a>
+              </div>
+            </article>
+          {{ end }}
+        </div>
+
+        <!-- Pagination -->
+        <div class="text-center">
+          <ul class="pagination">
+            {{ template "_internal/pagination.html" . }}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}

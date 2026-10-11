@@ -1,0 +1,35 @@
+[
+    {
+        "id": 0,
+        "items": [
+            {
+                "name": "Jasa Pasang Pagar Panel",
+                "url": "#",
+                "icon": "fa-solid fa-server",
+                "description": "Jasa pemasangan pagar panel beton berkualitas."
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "items": [
+            {
+                "name": "Jasa Pasang U-ditch",
+                "url": "#",
+                "icon": "fa-solid fa-archway",
+                "description": "Jasa pemasangan U-ditch beton untuk saluran air."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "items": [
+            {
+                "name": "Jasa Pasang Buis Beton",
+                "url": "#",
+                "icon": "fa-solid fa-database",
+                "description": "Jasa pemasangan buis beton untuk berbagai kebutuhan."
+            }
+        ]
+    }
+]

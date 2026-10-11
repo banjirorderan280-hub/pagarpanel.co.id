@@ -1,0 +1,75 @@
+{{ define "main" }}
+<main id="main">
+  <div class="container">
+    <div class="row topspace">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h1>Promo Spesial - {{ .Site.Params.name }}</h1>
+        <table class="promo-table">
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Harga Normal</th>
+              <th>Harga Promo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Site.Params.promoItems }}
+            <tr>
+              <td>{{ .name }}</td>
+              <td class="normal-price">{{ .normalPrice }}</td>
+              <td class="promo-price">{{ .promoPrice }}</td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
+        <div id="countdown" class="countdown" data-countdown="{{ .Site.Params.promoEndDate }}" style="color: black; font-size: 20px;">
+          Loading...
+        </div>
+        <div class="text-center mt-4" style="margin-bottom: 20px; margin-top: 10px;">
+          <a href="https://api.whatsapp.com/send?phone={{ .Site.Params.checkoutWa }}&text=*Nama*%20%3A%0A*Alamat*%20%3A%0A*No-Tlp*%20%3A%0A*Pesan-Promo?*%20%3A" class="btn btn-primary btn-lg">Checkout Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+  function updateCountdown() {
+    var countdownElement = document.getElementById('countdown');
+    var endDateString = countdownElement.getAttribute('data-countdown');
+    
+    console.log("End date string:", endDateString); // Debug log
+    
+    var endDate = new Date(endDateString);
+    
+    if (isNaN(endDate.getTime())) {
+      countdownElement.innerHTML = "Tanggal tidak valid";
+      console.error("Invalid date:", endDateString); // Debug log
+      return;
+    }
+    
+    var now = new Date();
+    var distance = endDate - now;
+    
+    if (distance < 0) {
+      countdownElement.innerHTML = "Promo Berakhir";
+      return;
+    }
+    
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    countdownElement.innerHTML = `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("Script is running"); // Debug log
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Run once immediately
+  });
+</script>
+{{ end }}

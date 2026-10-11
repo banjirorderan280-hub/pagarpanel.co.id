@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    {{ if .Description}}
+  	<meta name="description" content="{{ .Description }}">
+    {{ else if eq .Kind "section" }}
+    <meta name="description" content="{{ .Section }}">
+    {{ else }}
+    <meta name="description" content="{{ .Site.Params.Description }}">
+    {{ end }}
+  	<meta name="author"      content="{{ .Site.Author }}">   
+    {{ partial "head/head.html" . }}
+  </head> 
+  <body class="home">
+    {{ block "header" . }}
+      {{ partial "head/header.html" . }}
+    {{ end }} 
+    {{ block "main" . }}
+    {{ end }}   
+    {{ block "footer" . }}
+      {{ partial "footer/footer.html" . }}
+    {{ end }}
+    <div class="main-content">
+  {{ if or .Site.Params.enableWhatApps .Site.Params.enableTelepon }}
+  {{ partial "footer/salam-chat.html" . }}
+  {{ end }}
+</div>
+{{ block "scripts" . }}
+    {{ end }}
+  </body>  
+</html>

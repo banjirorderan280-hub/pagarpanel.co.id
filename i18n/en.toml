@@ -1,0 +1,26 @@
+[home_recentworks]
+    other = "Proyek Terbaru"
+
+[tableOfContents]
+    other = ""
+
+[404_title]
+    other = "404"
+[404_description]
+    other = "Oops! Halaman ini tidak ditemukan!"
+
+[footer_contact_title]
+    other = "Kontak"
+
+[footer_unggul_title]
+    other = "Keunggulan Kami"
+[footer_unggul1]
+    other = "Jangkauan luas, Gratis biaya pengiriman, Gratis survey, Pemesanan mudah, Pembayaran 100% aman, Buka setiap hari, Konsultasi gratis, Jenis mutu beton precast lengkap"
+
+[footer_text_title]
+    other = "Tentang Kami"
+[footer_text1]
+    other = "PagarPanel.co.id adalah penyedia terpercaya dalam penjualan dan pemasangan pagar panel beton serta U-ditch beton. Dengan pengalaman bertahun-tahun di industri, kami berkomitmen untuk menghadirkan produk yang kuat, tahan lama, dan estetis untuk berbagai proyek konstruksi Anda."
+
+[recent_works_click_text]
+    other = "selengkapnya"
