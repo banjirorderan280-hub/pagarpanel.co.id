@@ -1,0 +1,97 @@
+name: Generate Articles from GSC Keywords
+
+on:
+  schedule:
+    # 06:00 UTC = 13:00 WIB. Deliberately ~12h away from revise-articles.yml (18:00 UTC).
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+# Serialize with every other workflow that commits/pushes to master (same group name everywhere).
+concurrency:
+  group: repo-write
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # `sharp` (AI-image resize + watermark) is installed here instead of being listed in
+      # package.json, so package-lock.json stays untouched and Cloudflare Pages' `npm ci`
+      # keeps working. To make it permanent: run `npm install sharp` locally and commit
+      # package.json + package-lock.json, then delete this step.
+      - name: Install sharp (image processing)
+        run: npm install --no-save --no-package-lock sharp@^0.35.3
+
+      - name: Generate Articles
+        env:
+          GSC_CREDENTIALS: ${{ secrets.GSC_CREDENTIALS }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Serper.dev keyword research (2nd-tier fallback). Without this secret the tier is
+          # simply skipped (a warning is logged) — nothing breaks.
+          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+          # Optional overrides — safe defaults (false / 8) are baked into the script:
+          # SERPER_USE_AUTOCOMPLETE: ${{ secrets.SERPER_USE_AUTOCOMPLETE }}
+          # SERPER_DAILY_BUDGET: ${{ secrets.SERPER_DAILY_BUDGET }}
+        run: node tools/generate-articles.js
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit and Push Articles
+        run: |
+          git add content/categories/
+          [ -f generated-articles.log ] && git add generated-articles.log
+          [ -d static/images/artikel ] && git add static/images/artikel/
+          [ -f keywords.txt ] && git add keywords.txt
+          [ -f .excluded-keywords.json ] && git add .excluded-keywords.json
+          [ -f .recent-openings.json ] && git add .recent-openings.json
+          [ -f .gsc-keyword-first-seen.json ] && git add .gsc-keyword-first-seen.json
+
+          if git diff --staged --quiet; then
+            echo "ℹ️  Nothing to commit (0 articles generated this session) — done."
+            exit 0
+          fi
+
+          git commit -m "Generate articles from GSC keywords"
+          for i in 1 2 3 4 5; do
+            if git push origin master; then
+              echo "✅ Push succeeded (attempt $i)."
+              exit 0
+            fi
+            if [ "$i" -eq 5 ]; then
+              echo "❌ Push still failed after 5 attempts — there may be a real conflict; check manually." >&2
+              exit 1
+            fi
+            wait_s=$(( (RANDOM % 10) + 5 ))
+            echo "⏳ Push rejected (possible race with another workflow), rebasing & retrying in ${wait_s}s... (attempt $i/5)"
+            sleep "$wait_s"
+            git fetch origin master
+            git stash push -u -m "pre-rebase-autostash" || true
+            git rebase origin/master
+            git stash drop || true
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

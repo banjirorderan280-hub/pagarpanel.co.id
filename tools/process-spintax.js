@@ -62,7 +62,7 @@ try {
   const yamlData = yaml.dump(data);
 
   // Pastikan direktori data/ ada
-  const dataDir = path.join(__dirname, 'data');
+  const dataDir = path.join(path.dirname(configPath), 'data');
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
     console.log('Direktori data/ dibuat.');

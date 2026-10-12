@@ -1,0 +1,6 @@
+node_modules/
+
+# Transient artifacts regenerated on every run (never committed)
+candidates.json
+orphans.json
+tools/DRY-RUN-*.md

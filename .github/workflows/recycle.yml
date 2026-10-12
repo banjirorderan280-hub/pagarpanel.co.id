@@ -1,0 +1,82 @@
+name: Recycle Old Posts
+
+# Replaces gitlab-ci.yml: refreshes the date of articles that have not been touched for 12
+# months (via `lastmod`, the original `date` is kept) and regenerates data/testimonials.yaml
+# from the spintax in config.toml. Cloudflare Pages rebuilds automatically after the push.
+
+on:
+  schedule:
+    # Weekly (Sunday 00:00 UTC = 07:00 WIB). Only articles whose last touch (lastmod, or date)
+    # is >= 12 months old are recycled, so checking more often has no real benefit.
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+concurrency:
+  group: repo-write
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  recycle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.14.0'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate testimonials data (spintax)
+        run: npm run spintax
+
+      - name: Recycle old posts
+        run: npm run recycle
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # static/ is included because recycle-posts.js's IndexNow integration
+          # (tools/lib/index-ping.js) creates a one-time verification file at static/<key>.txt;
+          # .indexnow-key.json remembers the same key across runs.
+          git add content/categories/ data/ static/
+          [ -f .indexnow-key.json ] && git add .indexnow-key.json
+
+          if git diff --staged --quiet; then
+            echo "ℹ️  Nothing to commit this week — done."
+            exit 0
+          fi
+
+          git commit -m "Recycle posts"
+
+          for i in 1 2 3 4 5; do
+            if git push origin master; then
+              echo "✅ Push successful (attempt $i)."
+              exit 0
+            fi
+            if [ "$i" -eq 5 ]; then
+              echo "❌ The push still fails after 5 attempts — there is likely a genuine conflict; please check manually." >&2
+              exit 1
+            fi
+            wait_s=$(( (RANDOM % 10) + 5 ))
+            echo "⏳ Push rejected (possible race with another workflow), rebasing & retrying in ${wait_s}s... (attempt $i/5)"
+            sleep "$wait_s"
+            git fetch origin master
+            git rebase -X theirs origin/master
+          done

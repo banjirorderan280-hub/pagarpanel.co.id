@@ -213,12 +213,22 @@ paginate = 6
   url    = "/categories/culvert/"
   weight = 4
 [[menu.main]]
+  name   = "Blog"
+  url    = "/categories/blog/"
+  weight = 5
+[[menu.main]]
   name   = "Promo"
   url    = "/promo/"
-  weight = 5
+  weight = 6
 
 [markup]
   [markup.tableOfContents]
     startLevel = 2
     endLevel   = 5
     ordered    = false
+
+  # Required by tools/lib/safe-table.js: AI-generated tables are rendered as raw HTML
+  # (<table class="table">), which Hugo only keeps when unsafe = true.
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

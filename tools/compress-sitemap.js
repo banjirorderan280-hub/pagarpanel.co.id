@@ -3,10 +3,11 @@ const zlib = require('zlib');
 const path = require('path');
 const toml = require('toml');
 
-const configPath = path.join(__dirname, 'config.toml');
-const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
-const sitemapGzipPath = path.join(__dirname, 'public', 'sitemap.xml.gz');
-const robotsPath = path.join(__dirname, 'public', 'robots.txt');
+const ROOT = path.join(__dirname, '..'); // repo root (this script lives in tools/)
+const configPath = path.join(ROOT, 'config.toml');
+const sitemapPath = path.join(ROOT, 'public', 'sitemap.xml');
+const sitemapGzipPath = path.join(ROOT, 'public', 'sitemap.xml.gz');
+const robotsPath = path.join(ROOT, 'public', 'robots.txt');
 
 function getBaseUrl() {
   const configContent = fs.readFileSync(configPath, 'utf-8');

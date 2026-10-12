@@ -11,6 +11,12 @@
                   {{- .Date.Format "2 January 2006" -}}
                 </time>
               </span>
+              {{/* tools/recycle-posts.js, revise-articles.js and fix-orphans.js keep `date` as the original publish date and bump `lastmod` instead. */}}
+              {{ if and (not .Lastmod.IsZero) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
+              <span class="updated-on">
+                &middot; <time class="entry-date updated" datetime="{{ .Lastmod.Format "2006-01-02" }}">Diperbarui {{ .Lastmod.Format "2 January 2006" }}</time>
+              </span>
+              {{ end }}
             </div>
             <h1>
               <a href="{{ .Permalink }}" rel="bookmark">{{ .Title }}</a>
