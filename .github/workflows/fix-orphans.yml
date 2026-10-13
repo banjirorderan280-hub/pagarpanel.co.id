@@ -13,6 +13,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   fix-orphans:
@@ -47,6 +48,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Commit and Push Fixes
+        id: commit_push
         run: |
           # orphans.json is NOT committed — it's regenerated fresh by Layer 1 every run.
           git add content/categories/
@@ -55,6 +57,7 @@ jobs:
 
           if git diff --staged --quiet; then
             echo "ℹ️  Nothing to commit (0 orphans fixed this session) — done."
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -63,6 +66,7 @@ jobs:
           for i in 1 2 3 4 5; do
             if git push origin master; then
               echo "✅ Push succeeded (attempt $i)."
+              echo "published=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [ "$i" -eq 5 ]; then
@@ -80,3 +84,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Trigger Deploy (publish today's link fixes now)
+        if: steps.commit_push.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚀 Orphan fixes pushed — triggering deploy.yml so they go live now..."
+          gh workflow run deploy.yml --ref master

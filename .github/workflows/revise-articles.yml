@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   revise:
@@ -47,6 +48,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Commit and Push Revisions
+        id: commit_push
         run: |
           git add content/categories/
           [ -f revised-articles.log ] && git add revised-articles.log
@@ -54,6 +56,7 @@ jobs:
 
           if git diff --staged --quiet; then
             echo "ℹ️  Nothing to commit (0 articles revised this session) — done."
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -62,6 +65,7 @@ jobs:
           for i in 1 2 3 4 5; do
             if git push origin master; then
               echo "✅ Push succeeded (attempt $i)."
+              echo "published=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [ "$i" -eq 5 ]; then
@@ -79,3 +83,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Trigger Deploy (publish today's revisions now)
+        if: steps.commit_push.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚀 Revisions pushed — triggering deploy.yml so they go live now..."
+          gh workflow run deploy.yml --ref master

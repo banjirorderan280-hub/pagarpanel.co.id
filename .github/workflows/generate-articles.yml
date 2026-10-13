@@ -13,6 +13,8 @@ concurrency:
 
 permissions:
   contents: write
+  # Needed to explicitly trigger deploy.yml at the end (GITHUB_TOKEN pushes don't fire `push` workflows).
+  actions: write
 
 jobs:
   generate:
@@ -34,9 +36,8 @@ jobs:
         run: npm ci
 
       # `sharp` (AI-image resize + watermark) is installed here instead of being listed in
-      # package.json, so package-lock.json stays untouched and Cloudflare Pages' `npm ci`
-      # keeps working. To make it permanent: run `npm install sharp` locally and commit
-      # package.json + package-lock.json, then delete this step.
+      # package.json, so package-lock.json stays untouched. To make it permanent: run
+      # `npm install sharp` locally, commit package.json + package-lock.json, then delete this step.
       - name: Install sharp (image processing)
         run: npm install --no-save --no-package-lock sharp@^0.35.3
 
@@ -60,6 +61,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Commit and Push Articles
+        id: commit_push
         run: |
           git add content/categories/
           [ -f generated-articles.log ] && git add generated-articles.log
@@ -71,6 +73,7 @@ jobs:
 
           if git diff --staged --quiet; then
             echo "ℹ️  Nothing to commit (0 articles generated this session) — done."
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -78,6 +81,7 @@ jobs:
           for i in 1 2 3 4 5; do
             if git push origin master; then
               echo "✅ Push succeeded (attempt $i)."
+              echo "published=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [ "$i" -eq 5 ]; then
@@ -95,3 +99,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Pushes made with GITHUB_TOKEN don't fire deploy.yml's `push` trigger, so dispatch it
+      # explicitly — otherwise today's articles would sit on master unpublished.
+      - name: Trigger Deploy (publish today's articles now)
+        if: steps.commit_push.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🚀 New articles pushed — triggering deploy.yml so they go live now..."
+          gh workflow run deploy.yml --ref master

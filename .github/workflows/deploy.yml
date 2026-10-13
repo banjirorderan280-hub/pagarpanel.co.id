@@ -1,0 +1,90 @@
+name: Deploy Site
+
+# Builds the Hugo site and commits the generated public/ folder back to master. Cloudflare Pages
+# only serves the contents of public/, so public/ must be rebuilt after every content change
+# (Cloudflare: build output directory = public, no build command).
+#
+# The automated pipeline (generate-articles / revise-articles / fix-orphans) never relies on the
+# `push` trigger below: pushes made with GITHUB_TOKEN do NOT fire push-triggered workflows
+# (GitHub's anti-recursion safeguard), so those workflows call `gh workflow run deploy.yml`
+# explicitly. The `push` trigger stays for manual pushes by a human maintainer.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'public/**'
+
+# Same group as every other workflow that commits to master, so they queue instead of racing.
+concurrency:
+  group: repo-write
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.124.0'
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.14.0'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Date-recycling of old posts lives in recycle.yml on its own low-frequency schedule, so
+      # this path (called daily, sometimes more) stays fast.
+      - name: Build Site
+        run: npm run build
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Commit and Push public/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add public/
+          if git diff --staged --quiet; then
+            echo "ℹ️  public/ unchanged — nothing to commit."
+            exit 0
+          fi
+          # NOTE: no "[skip ci]" here on purpose. Hosts such as GitHub Pages / Cloudflare Pages /
+          # Netlify honour that tag and would SKIP publishing this very commit — which is the
+          # commit that carries the new public/ files, so new articles never went live.
+          # Loop safety comes from `paths-ignore: public/**` on the push trigger instead.
+          git commit -m "Build site"
+          for i in 1 2 3 4 5; do
+            if git push origin master; then
+              echo "✅ Push succeeded (attempt $i)."
+              exit 0
+            fi
+            if [ "$i" -eq 5 ]; then
+              echo "❌ Push still failed after 5 attempts — check manually." >&2
+              exit 1
+            fi
+            wait_s=$(( (RANDOM % 10) + 5 ))
+            echo "⏳ Push rejected, rebasing & retrying in ${wait_s}s... (attempt $i/5)"
+            sleep "$wait_s"
+            git fetch origin master
+            git rebase -X theirs origin/master
+          done
