@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /categories/*/page/
+Disallow: /tags/*/page/
+Disallow: /page/
+
+Sitemap: https://pagarpanel.co.id/sitemap.xml

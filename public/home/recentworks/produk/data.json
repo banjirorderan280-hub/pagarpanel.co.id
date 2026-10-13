@@ -1,0 +1,35 @@
+[
+    {
+        "id": 0,
+        "items": [
+            {
+                "name": "Pagar Panel Beton",
+                "url": "#",
+                "image": "/images/icon-pagar-panel.png",
+                "description": "Pagar panel beton yang kuat dan tahan lama."
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "items": [
+            {
+                "name": "U-ditch Beton",
+                "url": "#",
+                "image": "/images/icon-u-ditch.png",
+                "description": "U-ditch beton untuk saluran air yang efektif."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "items": [
+            {
+                "name": "Buis Beton",
+                "url": "#",
+                "image": "/images/icon-buis-beton.png",
+                "description": "Buis beton untuk berbagai aplikasi konstruksi."
+            }
+        ]
+    }
+]
