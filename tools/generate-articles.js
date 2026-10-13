@@ -377,7 +377,7 @@ function updateFirstSeenMap(keywordItems) {
 async function fetchKeywordsFromGSC() {
   if (IS_DRY_RUN) {
     if (CUSTOM_KW && !hasMinKeywordWords(CUSTOM_KW, 3)) {
-      console.log(`   ⚠️  --keyword="${CUSTOM_KW}" has < 3 significant words — normally skipped, proceeding anyway since this is an explicit manual --dry-run override.`);
+      console.log(`   ⚠️  --keyword="${CUSTOM_KW}" has a connective word or < 3 words — normally skipped, proceeding anyway since this is an explicit manual --dry-run override.`);
     }
     const kws = CUSTOM_KW
       ? [{ keyword: CUSTOM_KW, impressions: 50, clicks: 1, ctr: 0.02, position: 9 }]
@@ -411,7 +411,7 @@ async function fetchKeywordsFromGSC() {
     .map(r => ({ keyword: r.keys[0], impressions: r.impressions, clicks: r.clicks, ctr: r.ctr, position: r.position }));
 
   if (droppedShort.length) {
-    console.log(`   ⏭️  ${droppedShort.length} GSC keyword(s) skipped (< 3 significant words): ${droppedShort.slice(0, 5).join(', ')}${droppedShort.length > 5 ? ', ...' : ''}`);
+    console.log(`   ⏭️  ${droppedShort.length} GSC keyword(s) skipped (contains a connective like "dan/yang/di/adalah" or < 3 words): ${droppedShort.slice(0, 5).join(', ')}${droppedShort.length > 5 ? ', ...' : ''}`);
   }
 
   // Record first-seen dates for anything new, so "oldest keyword first" ordering below
@@ -465,6 +465,26 @@ const CONJUNCTION_STOPWORDS = new Set([
   'yang', 'para', 'si', 'sang', 'per', 'apa', 'apakah', 'dalam', 'juga', 'bisa', 'dapat', 'pun',
 ]);
 
+// ─── Connective filter: keywords that CONTAIN a connective are skipped entirely ─────────────
+// A keyword such as "perbedaan u ditch dan box culvert" or "fungsi u ditch yang baik" is a
+// fragment of a sentence, not a clean topic. Any keyword containing one of these words
+// (conjunctions, prepositions, copulas, demonstratives) is skipped — for every source (GSC,
+// Serper.dev, keywords.txt). Words that are NOT connectives ("per", "apa", "bisa", "dapat") stay allowed.
+const CONNECTIVE_SKIP_WORDS = new Set([
+  'dan', 'atau', 'serta', 'maupun', 'namun', 'tetapi', 'tapi', 'melainkan', 'sedangkan', 'sementara',
+  'adalah', 'ialah', 'yaitu', 'yakni', 'merupakan',
+  'itu', 'ini', 'tersebut',
+  'yang', 'di', 'ke', 'dari', 'dengan', 'pada', 'untuk', 'oleh', 'akan', 'karena', 'sebab',
+  'agar', 'supaya', 'jika', 'kalau', 'apabila', 'meski', 'meskipun', 'walau', 'walaupun',
+  'hingga', 'sampai', 'sejak', 'tanpa', 'bagi', 'terhadap', 'antara', 'sebagai', 'seperti',
+  'dalam', 'juga', 'pun', 'para', 'si', 'sang', 'bahwa', 'sehingga', 'lalu', 'kemudian',
+]);
+
+function findConnective(text) {
+  const words = (text || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter(Boolean);
+  return words.find(w => CONNECTIVE_SKIP_WORDS.has(w)) || null;
+}
+
 function countSignificantWords(text) {
   return (text || '')
     .toLowerCase()
@@ -475,8 +495,9 @@ function countSignificantWords(text) {
     .length;
 }
 
+// Eligible keyword = contains NO connective AND has at least `min` words.
 function hasMinKeywordWords(text, min = 3) {
-  return countSignificantWords(text) >= min;
+  return !findConnective(text) && countSignificantWords(text) >= min;
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -586,7 +607,7 @@ function getKeywordsFromFile() {
   // removed) so a human can see and fix them; they're just skipped for now.
   const tooShort = allLines.filter(kw => !hasMinKeywordWords(kw, 3));
   if (tooShort.length) {
-    console.log(`   ⏭️  ${tooShort.length} keyword(s) in keywords.txt skipped (< 3 significant words, left in file for review): ${tooShort.slice(0, 5).join(', ')}${tooShort.length > 5 ? ', ...' : ''}`);
+    console.log(`   ⏭️  ${tooShort.length} keyword(s) in keywords.txt skipped (contains a connective like "dan/yang/di/adalah" or < 3 words, left in file for review): ${tooShort.slice(0, 5).join(', ')}${tooShort.length > 5 ? ', ...' : ''}`);
   }
 
   return allLines
@@ -1106,7 +1127,7 @@ async function generateArticle(keyword, relatedCandidates = [], extraNote = '') 
 DESCRIPTION: ${keyword.charAt(0).toUpperCase() + keyword.slice(1)} terbaik untuk properti dan proyek konstruksi Anda. Temukan tips, harga, dan solusi dari ${CONFIG.SITE_NAME}.
 TAGS: ${keyword.split(' ').slice(0, 3).join(', ')}, pagar panel beton, PagarPanel.co.id
 ARTIKEL_MULAI
-**${kwTitle}** – salah satu pertanyaan yang sering Kami terima adalah seputar ${keyword}. Artikel ini membahasnya secara ringkas dan praktis.
+**${kwTitle}** – Sahabat Pagar Panel, salah satu pertanyaan yang sering Kami terima adalah seputar ${keyword}. Artikel ini membahasnya secara ringkas dan praktis.
 
 ![${kwTitle}](IMAGE_PLACEHOLDER)
 
@@ -1122,7 +1143,7 @@ ${keyword.charAt(0).toUpperCase() + keyword.slice(1)} merupakan salah satu kebut
 
 ## Penutup
 
-Demikian pembahasan Kami seputar ${keyword}. Apabila Anda membutuhkan konsultasi lebih lanjut, silakan hubungi Kami melalui tombol **Telepon** atau **WhatsApp** yang tersedia di bawah halaman ini.
+Sahabat Pagar Panel, demikian pembahasan Kami seputar ${keyword}. Apabila Anda membutuhkan konsultasi lebih lanjut, silakan hubungi Kami melalui tombol **Telepon** atau **WhatsApp** yang tersedia di bawah halaman ini.
 `;
     return { raw };
   }
@@ -1228,6 +1249,32 @@ function ensurePpOpening(body, title) {
   return `**${title}** – ${trimmed}`;
 }
 
+// Audience-greeting convention: "Sahabat Pagar Panel" appears ONLY in the first and the last
+// paragraph; every paragraph in between (and headings, lists, tables) says "Anda". The prompt
+// asks for this; the function below guarantees it. Returns { body, warnings }.
+const GREETING = 'Sahabat Pagar Panel';
+function enforceAudienceGreeting(body) {
+  const warnings = [];
+  const blocks = body.trim().split(/\n{2,}/);
+  const isProse = b => b.trim() && !/^(#{1,6}\s|[-*]\s|\d+\.\s|\||!\[|<|\{\{)/.test(b.trim());
+  const proseIdx = blocks.map((b, i) => (isProse(b) ? i : -1)).filter(i => i >= 0);
+  if (!proseIdx.length) return { body, warnings };
+  const first = proseIdx[0];
+  const last  = proseIdx[proseIdx.length - 1];
+  const greetRe = new RegExp(GREETING, 'gi');
+  blocks.forEach((b, i) => {
+    if (i === first || i === last) return;
+    if (greetRe.test(b)) {
+      blocks[i] = b.replace(new RegExp(`${GREETING},?\\s*`, 'gi'), 'Anda ').replace(/Anda\s+Anda/g, 'Anda');
+      warnings.push(`sapaan "${GREETING}" di tengah artikel diganti "Anda" (paragraf ${i + 1})`);
+    }
+    greetRe.lastIndex = 0;
+  });
+  if (!new RegExp(GREETING, 'i').test(blocks[first])) warnings.push(`paragraf pertama belum memuat "${GREETING}"`);
+  if (first !== last && !new RegExp(GREETING, 'i').test(blocks[last])) warnings.push(`paragraf terakhir belum memuat "${GREETING}"`);
+  return { body: blocks.join('\n\n'), warnings };
+}
+
 function parseAndSave(raw, keyword, slug, imagePath, relatedCandidates = []) {
   const lines  = raw.split('\n');
   let title    = keyword.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -1252,6 +1299,11 @@ function parseAndSave(raw, keyword, slug, imagePath, relatedCandidates = []) {
   if (!body.trim()) body = raw;
   body = stripTrailingMarkers(body);
   body = ensurePpOpening(body, title);
+  {
+    const g = enforceAudienceGreeting(body);
+    body = g.body;
+    g.warnings.forEach(w => console.log(`   ⚠️  Sapaan: ${w}`));
+  }
 
   body = body.replace(/IMAGE_PLACEHOLDER/g, imagePath);
 
@@ -1330,7 +1382,12 @@ function saveRecentOpenings(list) {
   fs.writeFileSync(RECENT_OPENINGS_FILE, JSON.stringify(list.slice(-10))); // save last 10 only
 }
 function getOpeningWords(body, n = 15) {
-  return body.trim().split(/\s+/).slice(0, n).join(' ');
+  // Ignore the fixed "**Title** – Sahabat Pagar Panel," lead-in so every article's opening does
+  // not look similar just because they all share the same greeting.
+  const t = body.trim()
+    .replace(/^\*\*[^*]+\*\*\s*[-–—]\s*/, '')
+    .replace(/^Sahabat Pagar Panel\s*,?\s*/i, '');
+  return t.split(/\s+/).slice(0, n).join(' ');
 }
 
 function openingBigramSimilarity(a, b) {
