@@ -17,7 +17,8 @@
     "dedup": "node tools/dedup-lapis1.js",
     "revise": "node tools/revise-articles.js --dry-run --limit=3",
     "find-orphans": "node tools/find-orphans.js",
-    "fix-orphans": "node tools/fix-orphans.js --dry-run --limit=3"
+    "fix-orphans": "node tools/fix-orphans.js --dry-run --limit=3",
+    "ping": "node tools/ping-indexnow.js"
   },
   "keywords": [],
   "author": "",

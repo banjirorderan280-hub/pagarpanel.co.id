@@ -17,6 +17,7 @@
 const fs     = require('fs');
 const path   = require('path');
 const https  = require('https');
+const http   = require('http');
 const crypto = require('crypto');
 
 const KEY_STATE_FILE = path.join(__dirname, '..', '..', '.indexnow-key.json');
@@ -27,10 +28,10 @@ const STATIC_DIR     = path.join(__dirname, '..', '..', 'static');
  * static/<key>.txt verification file) the first time this ever runs. The SAME key must keep
  * being used on every future run.
  *
- * First-run caveat: static/<key>.txt isn't LIVE until the build gets deployed a few steps
- * later in the workflow, so the very first submission may be rejected with a key-verification
- * error. This self-resolves from the next run onward. The file and .indexnow-key.json must be
- * committed (recycle.yml does `git add static/ .indexnow-key.json`).
+ * deploy.yml calls `node tools/ping-indexnow.js --ensure-key` BEFORE the Hugo build so the key file
+ * is copied into public/ and goes live in the same deploy; the ping step afterwards waits until
+ * https://<site>/<key>.txt really answers 200 before submitting. The file and
+ * .indexnow-key.json are committed by deploy.yml (`git add public/ static/ .indexnow-key.json`).
  */
 function ensureIndexNowKey() {
   let key;
@@ -53,57 +54,92 @@ function ensureIndexNowKey() {
   return key;
 }
 
-function httpsPostJson(hostname, reqPath, payload, timeoutMs = 15000) {
+const ENDPOINT = () => new URL(process.env.INDEXNOW_ENDPOINT || 'https://api.indexnow.org/indexnow');
+
+function postJson(endpoint, payload, timeoutMs = 20000) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(payload);
-    const req = https.request({
-      hostname,
-      path: reqPath,
-      method: 'POST',
-      headers: {
+    const lib = endpoint.protocol === 'http:' ? http : https;
+    const req = lib.request({
+      hostname: endpoint.hostname,
+      port    : endpoint.port || undefined,
+      path    : endpoint.pathname + endpoint.search,
+      method  : 'POST',
+      headers : {
         'Content-Type'  : 'application/json; charset=utf-8',
         'Content-Length': Buffer.byteLength(body),
       },
     }, res => {
       let data = '';
       res.on('data', c => data += c);
-      res.on('end', () => resolve({ statusCode: res.statusCode, body: data }));
+      res.on('end', () => resolve({ statusCode: res.statusCode, body: data, retryAfter: res.headers['retry-after'] }));
     });
-    req.setTimeout(timeoutMs, () => req.destroy(new Error(`Timeout after ${timeoutMs / 1000}s (${hostname}${reqPath})`)));
+    req.setTimeout(timeoutMs, () => req.destroy(new Error(`Timeout after ${timeoutMs / 1000}s (${endpoint.hostname})`)));
     req.on('error', reject);
     req.write(body);
     req.end();
   });
 }
 
+// Meaning of the IndexNow response codes (https://www.indexnow.org/documentation).
+const STATUS_EXPLAIN = {
+  200: 'URLs submitted.',
+  202: 'Accepted — the key file is still being validated by the search engine; URLs will be processed.',
+  400: 'Bad request (malformed JSON).',
+  403: 'Key invalid: https://<site>/<key>.txt is not reachable yet or its content is not exactly the key.',
+  422: 'URLs do not belong to the host, or the key does not match the host.',
+  429: 'Too many requests (rate-limited / flagged as spam) — slow down.',
+};
+
 /**
  * Submits `urls` (full https:// page URLs that were actually added/changed — NOT a sitemap URL)
- * to IndexNow in one batched call (up to 10,000 URLs per the protocol spec). Does nothing if
- * `urls` is empty.
+ * to IndexNow, in batches of up to 10,000 (the protocol limit). Retries once on HTTP 429.
+ * Does nothing if `urls` is empty.
  *
  * @param {string} siteUrl - e.g. "https://pagarpanel.co.id/"
  * @param {string[]} urls  - full page URLs, same host as siteUrl
+ * @returns {Promise<{ok:boolean, statusCode?:number, explain?:string, body?:string, error?:string, skipped?:boolean}>}
  */
 async function submitToIndexNow(siteUrl, urls) {
-  if (!urls || !urls.length) return { skipped: true, reason: 'no URLs to submit' };
+  if (!urls || !urls.length) return { skipped: true, ok: true, reason: 'no URLs to submit' };
 
   const key = ensureIndexNowKey();
   const host = new URL(siteUrl).host;
   const keyLocation = `${siteUrl.replace(/\/$/, '')}/${key}.txt`;
-  const payload = { host, key, keyLocation, urlList: urls.slice(0, 10000) };
+  const own = urls.filter(u => { try { return new URL(u).host === host; } catch { return false; } });
+  if (own.length !== urls.length) console.warn(`   ⚠️  ${urls.length - own.length} URL(s) skipped: not on host ${host}.`);
 
-  try {
-    const { statusCode, body } = await httpsPostJson('api.indexnow.org', '/indexnow', payload);
-    if (statusCode === 200 || statusCode === 202) {
-      console.log(`   ✅ IndexNow: ${urls.length} URL(s) submitted to Bing/Yandex/Seznam/Naver (HTTP ${statusCode}).`);
-      return { ok: true, statusCode };
+  let last = { ok: true };
+  for (let i = 0; i < own.length; i += 10000) {
+    const batch = own.slice(i, i + 10000);
+    const payload = { host, key, keyLocation, urlList: batch };
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const r = await postJson(ENDPOINT(), payload);
+        const explain = STATUS_EXPLAIN[r.statusCode] || '';
+        if (r.statusCode === 200 || r.statusCode === 202) {
+          console.log(`   ✅ IndexNow: ${batch.length} URL(s) submitted (HTTP ${r.statusCode}). ${explain}`);
+          last = { ok: true, statusCode: r.statusCode, explain };
+          break;
+        }
+        if (r.statusCode === 429 && attempt === 1) {
+          const wait = Math.min(parseInt(r.retryAfter, 10) || 30, 120);
+          console.warn(`   ⏳ IndexNow HTTP 429 — retrying once in ${wait}s...`);
+          await new Promise(res => setTimeout(res, wait * 1000));
+          continue;
+        }
+        console.warn(`   ⚠️  IndexNow returned HTTP ${r.statusCode}: ${explain} ${r.body.slice(0, 200)}`);
+        last = { ok: false, statusCode: r.statusCode, explain, body: r.body };
+        break;
+      } catch (err) {
+        console.warn(`   ⚠️  IndexNow submission failed: ${err.message}`);
+        last = { ok: false, error: err.message };
+        break;
+      }
     }
-    console.warn(`   ⚠️  IndexNow submission returned HTTP ${statusCode}: ${body.slice(0, 200)}`);
-    return { ok: false, statusCode, body };
-  } catch (err) {
-    console.warn(`   ⚠️  IndexNow submission failed: ${err.message}`);
-    return { ok: false, error: err.message };
+    if (!last.ok) break;
   }
+  return last;
 }
 
 module.exports = { submitToIndexNow, ensureIndexNowKey };

@@ -1,5 +1,9 @@
 name: Recycle Old Posts
 
+# Replaces gitlab-ci.yml: refreshes the date of articles that have not been touched for 12
+# months (via `lastmod`, the original `date` is kept) and regenerates data/testimonials.yaml
+# from the spintax in config.toml, then dispatches deploy.yml (build + public/ + IndexNow).
+
 on:
   schedule:
     # Weekly (Sunday 00:00 UTC = 07:00 WIB). Only articles whose last touch (lastmod, or date)
@@ -13,6 +17,8 @@ concurrency:
 
 permissions:
   contents: write
+  # Needed to dispatch deploy.yml at the end (pushes made with GITHUB_TOKEN don't fire `push` workflows).
+  actions: write
 
 jobs:
   recycle:
@@ -23,12 +29,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: '0.124.0'
-          extended: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,8 +42,10 @@ jobs:
       - name: Generate testimonials data (spintax)
         run: npm run spintax
 
-      - name: Run Recycle and Build
-        run: npm run build:recycle
+      # Only touches content (lastmod). The site build, the commit of public/ and the IndexNow
+      # ping all happen in deploy.yml, which this workflow dispatches after pushing.
+      - name: Recycle old posts
+        run: npm run recycle
 
       - name: Configure Git
         run: |
@@ -51,25 +53,24 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Commit and Push Changes
+        id: commit_push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # static/ is included because recycle-posts.js's IndexNow integration
-          # (tools/lib/index-ping.js) creates a one-time verification file at static/<key>.txt;
-          # .indexnow-key.json remembers the same key across runs.
-          git add content/categories/ data/ public/ static/
-          [ -f .indexnow-key.json ] && git add .indexnow-key.json
+          git add content/categories/ data/
 
           if git diff --staged --quiet; then
-            echo "ℹ️  No articles to recycle this week — done."
+            echo "ℹ️  Nothing to commit this week — done."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git commit -m "Recycle posts and rebuild"
+          git commit -m "Recycle posts"
 
           for i in 1 2 3 4 5; do
             if git push origin master; then
               echo "✅ Push successful (attempt $i)."
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [ "$i" -eq 5 ]; then
@@ -82,3 +83,9 @@ jobs:
             git fetch origin master
             git rebase -X theirs origin/master
           done
+
+      - name: Trigger Deploy (build, publish, ping IndexNow)
+        if: steps.commit_push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref master

@@ -1,14 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const { execSync } = require('child_process');
-
-// Working URL-notification logic (IndexNow) — replaces the old axios-based pingSearchEngines(),
-// which pinged endpoints that are retired or were never real search-engine endpoints.
-// See tools/lib/index-ping.js for the full explanation.
-const { submitToIndexNow } = require('./lib/index-ping.js');
-
-const SITE_URL = 'https://pagarpanel.co.id/';
 
 const contentDir = path.join(__dirname, '..', 'content');
 const now = new Date();
@@ -92,21 +84,11 @@ for (const filePath of markdownFiles) {
   }
 }
 
-// Async IIFE (CommonJS has no top-level await) so the script WAITS for the IndexNow submission
-// to finish before exiting.
-(async () => {
-  if (updatedCount > 0) {
-    console.log(`${updatedCount} article(s) updated.`);
-    // Rebuild the Hugo site
-    execSync('hugo', { stdio: 'inherit' });
-
-    // IndexNow wants the SPECIFIC pages that changed, not the sitemap URL.
-    const updatedUrls = updatedFilePaths.map(fp => `${SITE_URL.replace(/\/$/, '')}${toUrl(fp)}`);
-    await submitToIndexNow(SITE_URL, updatedUrls);
-  } else {
-    console.log('There are no articles that need to be updated.');
-  }
-})().catch(err => {
-  console.error('\n💥 Fatal error:', err.message);
-  process.exit(1);
-});
+// Only content is touched here. Building the site and pinging IndexNow happen in deploy.yml
+// (recycle.yml dispatches it), AFTER the pages are live — pinging from this script would run
+// before the deploy, when the new pages and the IndexNow key file are not reachable yet.
+if (updatedCount > 0) {
+  console.log(`${updatedCount} article(s) updated (lastmod bumped).`);
+} else {
+  console.log('There are no articles that need to be updated.');
+}
