@@ -42,7 +42,17 @@
     "/categories/blog/harga-panel-beton-per-meter/",
     "/categories/blog/pagar-panel-beton/",
     "/categories/culvert/jual-dan-pasang-box-culvert-di-curug-depok/",
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-curug-mekar-bogor/"
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-curug-mekar-bogor/",
+    "/categories/blog/biaya-pagar-beton-per-meter/",
+    "/categories/blog/harga-pagar-arcon-per-meter/",
+    "/categories/blog/harga-pagar-beton-precast-terpasang/",
+    "/categories/blog/harga-pagar-precast-per-meter/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jatinegara-jakarta/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jelambar-jakarta/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jembatan-lima-jakarta/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-joglo-jakarta/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-kab-bandung/",
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-kab-cirebon/"
   ],
   "failed": {
     "/categories/culvert/jual-dan-pasang-box-culvert-di-abadijaya-depok/": 1,
@@ -59,10 +69,16 @@
     "/categories/culvert/jual-dan-pasang-box-culvert-di-curug-mekar-bogor/": 1,
     "/categories/culvert/jual-dan-pasang-box-culvert-di-darangdan-purwakarta/": 2,
     "/categories/culvert/jual-dan-pasang-box-culvert-di-duren-tiga-jakarta/": 2,
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-galaxi-bekasi/": 1,
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-gandul-depok/": 1,
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-grogol-depok/": 1,
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-gunung-sahari-jakarta/": 1,
-    "/categories/blog/harga-pagar-precast-per-meter/": 1
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-galaxi-bekasi/": 2,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-gandul-depok/": 2,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-grogol-depok/": 2,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-gunung-sahari-jakarta/": 2,
+    "/categories/blog/harga-pagar-precast-per-meter/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jagakarsa-jakarta/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jatijajar-depok/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-jatimulya-depok/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-johar-baru-jakarta/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-kab-bandung-barat/": 1,
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-kab-ciamis/": 1
   }
 }
