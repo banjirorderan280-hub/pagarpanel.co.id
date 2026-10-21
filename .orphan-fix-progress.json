@@ -1,8 +1,15 @@
 {
-  "fixed": [],
+  "fixed": [
+    "/categories/blog/berat-u-ditch-beton/",
+    "/categories/blog/buis-beton-80-cm-harga/",
+    "/categories/blog/buis-beton-diameter-1-meter/",
+    "/categories/blog/harga-besi-baja-per-batang/",
+    "/categories/blog/harga-besi-ulir-10mm-full/",
+    "/categories/blog/harga-beton-pracetak-u-ditch/"
+  ],
   "failed": {
     "/categories/blog/berat-u-ditch-beton/": 1,
-    "/categories/blog/cara-memasang-box-culvert/": 1,
+    "/categories/blog/cara-memasang-box-culvert/": 2,
     "/categories/blog/cara-memasang-u-ditch-beton/": 1,
     "/categories/blog/harga-box-culvert-beton-per-meter/": 1,
     "/categories/blog/harga-u-ditch-beton-per-meter/": 1,
@@ -10,6 +17,9 @@
     "/categories/blog/ukuran-box-culvert-beton/": 1,
     "/categories/culvert/jual-dan-pasang-box-culvert-di-bantarjati-bogor/": 1,
     "/categories/culvert/jual-dan-pasang-box-culvert-di-beji-depok/": 1,
-    "/categories/culvert/jual-dan-pasang-box-culvert-di-bojong-pondok-terong-depok/": 1
+    "/categories/culvert/jual-dan-pasang-box-culvert-di-bojong-pondok-terong-depok/": 1,
+    "/categories/blog/buis-beton-1-2-lingkaran/": 1,
+    "/categories/blog/cara-membuat-cetakan-u-ditch/": 1,
+    "/categories/blog/cara-pemasangan-saluran-u-ditch/": 1
   }
 }

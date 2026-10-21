@@ -1,7 +1,7 @@
 ---
 title: "Harga Panel Beton Per Meter: Panduan Lengkap dan Estimasi Biaya 2026"
 date: "2026-10-16"
-lastmod: "2026-10-16"
+lastmod: "2026-10-21"
 categories: [blog]
 focus_keyphrase: "harga panel beton per meter"
 meta_title: "Harga Panel Beton Per Meter: Panduan Lengkap dan Estimasi Biaya 2026 - PagarPanel.co.id"
@@ -28,7 +28,7 @@ Terakhir, biaya tambahan seperti transportasi dan jasa pemasangan juga berperan 
 
 Dalam merencanakan anggaran, mendapatkan gambaran harga panel beton per meter sangatlah penting. Di tahun 2026, perkiraan harga berkisar antara Rp 350.000 hingga Rp 650.000 per meter. Kisaran ini dipengaruhi langsung oleh faktor-faktor yang telah disebutkan sebelumnya. 
 
-Sebagai ilustrasi, panel beton dengan mutu K-225, tinggi 2 meter, dan panjang 4 meter diperkirakan memiliki harga sekitar Rp 400.000 per meter. Sementara itu, panel beton dengan mutu K-300 dan dimensi serupa dapat mencapai Rp 500.000 per meter. Perlu diingat bahwa angka ini merupakan estimasi dan dapat berubah sewaktu-waktu. Untuk penawaran terkini yang disesuaikan dengan spesifikasi proyek Anda di (not detected), silakan hubungi Kami. Ingatlah bahwa harga panel beton hanyalah salah satu komponen biaya; Anda juga perlu mempertimbangkan biaya tiang, sloof, dan biaya jasa pemasangan.
+Sebagai ilustrasi, panel beton dengan mutu K-225, tinggi 2 meter, dan panjang 4 meter diperkirakan memiliki harga sekitar Rp 400.000 per meter. Sementara itu, panel beton dengan mutu K-300 dan dimensi serupa dapat mencapai Rp 500.000 per meter. Perlu diingat bahwa angka ini merupakan estimasi dan dapat berubah sewaktu-waktu. Untuk penawaran terkini yang disesuaikan dengan spesifikasi proyek Anda di (not detected), silakan hubungi Kami untuk konsultasi mengenai [solusi drainase beton](/categories/blog/buis-beton-diameter-1-meter/). Ingatlah bahwa harga panel beton hanyalah salah satu komponen biaya; Anda juga perlu mempertimbangkan biaya tiang, sloof, dan biaya jasa pemasangan.
 
 <table class="table">
   <caption>Estimasi Biaya Total Pagar Panel Beton (Contoh)</caption>
