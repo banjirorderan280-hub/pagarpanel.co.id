@@ -530,5 +530,12 @@
     "matchedTitle": "Harga Buis Beton Saluran Air: Panduan Lengkap 2026 & Estimasi Biaya",
     "taggedAt": "2026-10-24T10:38:47.697Z",
     "algoVersion": 2
+  },
+  "harga sumur resapan buis beton": {
+    "reason": "similar to existing article",
+    "matchedFile": "harga-buis-beton-sumur-resapan.md",
+    "matchedTitle": "Harga Buis Beton Sumur Resapan: Panduan Lengkap dan Estimasi Biaya 2026",
+    "taggedAt": "2026-10-25T11:02:46.381Z",
+    "algoVersion": 2
   }
 }
