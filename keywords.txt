@@ -61,9 +61,6 @@ harga buis beton u 30
 harga buis beton ukuran 80
 harga buis beton untuk sumur
 harga cetakan pagar panel beton
-harga gorong gorong 100 cm
-harga gorong gorong 20 cm
-harga gorong gorong 30 cm
 harga gorong gorong 80 cm
 harga gorong gorong beton bulat
 harga gorong gorong beton u
