@@ -1,7 +1,7 @@
 ---
 title: "Harga Buis Sumur Ukuran 80: Panduan Lengkap dan Estimasi Biaya 2026"
 date: "2026-10-25"
-lastmod: "2026-10-25"
+lastmod: "2026-10-28"
 categories: [blog]
 focus_keyphrase: "harga buis sumur ukuran 80"
 meta_title: "Harga Buis Sumur Ukuran 80: Panduan Lengkap dan Estimasi Biaya 2026 - PagarPanel.co.id"
@@ -18,7 +18,7 @@ draft: false
 
 Buis sumur, atau pipa beton, merupakan komponen vital dalam sistem drainase modern. Fungsinya sederhana namun krusial: mengalirkan air permukaan ke saluran pembuangan utama. Ukuran 80 cm (diameter 800 mm) adalah pilihan populer untuk berbagai aplikasi, mulai dari area perumahan hingga kawasan komersial dengan kebutuhan drainase menengah. 
 
-Mengapa memilih buis beton alih-alih alternatif lain? Keunggulan utamanya terletak pada daya tahan dan minimnya perawatan. Buis beton tahan terhadap tekanan tanah, beban lalu lintas, dan erosi – menjadikannya solusi jangka panjang yang hemat biaya. Selain itu, pemasangannya relatif cepat, tidak mengganggu aksesibilitas, dan tidak memerlukan perawatan rutin seperti saluran terbuka. PagarPanel.co.id siap memfasilitasi Anda dengan layanan pemasangan profesional untuk hasil optimal.
+Mengapa memilih buis beton alih-alih alternatif lain? Keunggulan utamanya terletak pada daya tahan dan minimnya perawatan. Buis beton tahan terhadap tekanan tanah, beban lalu lintas, dan erosi – menjadikannya solusi jangka panjang yang hemat biaya. Selain itu, pemasangannya relatif cepat, tidak mengganggu aksesibilitas, dan tidak memerlukan perawatan rutin seperti saluran terbuka. PagarPanel.co.id siap memfasilitasi Anda dengan layanan pemasangan profesional untuk hasil optimal, dan kami juga menyediakan [harga buis sumur ukuran 60](/categories/blog/harga-buis-sumur-ukuran-60/) untuk kebutuhan drainase yang lebih spesifik.
 
 ## Faktor Penentu Harga Buis Sumur Ukuran 80
 
