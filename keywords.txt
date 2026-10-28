@@ -64,9 +64,6 @@ harga cetakan pagar panel beton
 harga gorong gorong 80 cm
 harga gorong gorong beton u
 harga gorong gorong buis beton
-harga gorong gorong setengah lingkaran
-harga gorong gorong u ditch
-harga gorong gorong ukuran 80
 harga gorong gorong ukuran kecil
 harga gorong gorong untuk sumur
 harga jasa pemasangan u ditch
