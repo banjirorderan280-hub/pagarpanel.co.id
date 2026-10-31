@@ -78,11 +78,8 @@ harga pasang pagar per meter
 harga plat besi untuk pagar
 harga saluran air beton precast
 harga sumur resapan buis beton
-harga tiang pagar kawat duri
 harga tiang pagar panel beton
-harga tutup saluran u ditch
 harga tutup septic tank beton
-harga tutup u ditch 40x40x120
 harga tutup u ditch 60x60
 harga tutup u ditch 80x80x120
 harga u ditch dan tutup
