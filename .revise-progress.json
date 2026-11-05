@@ -232,7 +232,18 @@
     "/categories/pagar/distributor-pagar-panel-beton-di-jatiasih-kota-bekasi/",
     "/categories/pagar/distributor-pagar-panel-beton-di-jatinegara-jakarta-timur/",
     "/categories/pagar/distributor-pagar-panel-beton-di-jatiuwung-kota-tangerang/",
-    "/categories/pagar/distributor-pagar-panel-beton-di-jawa-barat/"
+    "/categories/pagar/distributor-pagar-panel-beton-di-jawa-barat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-jasinga-kab-bogor/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-jatisampurna-kota-bekasi/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-johar-baru-jakarta-pusat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kab-bekasi-jawa-barat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kab-bogor-jawa-barat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kab-cianjur/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kab-tangerang/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-karangbahagia-kab-bekasi/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-karangtengah-kota-tangerang/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kebayoran-baru-jakarta-selatan/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kec-balaraja-kab-tangerang/"
   ],
   "failed": {
     "/categories/culvert/jual-dan-pasang-box-culvert-di-abadijaya-depok/": 1,
@@ -345,10 +356,16 @@
     "/categories/pagar/distributor-pagar-panel-beton-di-cisarua-kab-bogor/": 1,
     "/categories/pagar/distributor-pagar-panel-beton-di-citayam/": 1,
     "/categories/pagar/distributor-pagar-panel-beton-di-citeureup-kab-bogor/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-grogol-petamburan-jakarta-barat/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-gunung-putri-kab-bogor/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-gunung-sindur-kab-bogor/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-grogol-petamburan-jakarta-barat/": 2,
+    "/categories/pagar/distributor-pagar-panel-beton-di-gunung-putri-kab-bogor/": 2,
+    "/categories/pagar/distributor-pagar-panel-beton-di-gunung-sindur-kab-bogor/": 2,
     "/categories/pagar/distributor-pagar-panel-beton-di-jasinga-kab-bogor/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-jatisampurna-kota-bekasi/": 1
+    "/categories/pagar/distributor-pagar-panel-beton-di-jatisampurna-kota-bekasi/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-jayanti-kab-tangerang/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kab-bandung/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kalideres-jakarta-barat/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-karawaci-kota-tangerang/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kebayoran-lama-jakarta-selatan/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kebon-jeruk-jakarta-barat/": 1
   }
 }
