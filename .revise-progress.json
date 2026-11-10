@@ -281,7 +281,20 @@
     "/categories/pagar/distributor-pagar-panel-beton-di-klapanunggal-kab-bogor/",
     "/categories/pagar/distributor-pagar-panel-beton-di-kota-bekasi-jawa-barat/",
     "/categories/pagar/distributor-pagar-panel-beton-di-kota-bogor-jawa-barat/",
-    "/categories/pagar/distributor-pagar-panel-beton-di-kota-depok-jawa-barat/"
+    "/categories/pagar/distributor-pagar-panel-beton-di-kota-depok-jawa-barat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kec-tigaraksa-kab-tangerang/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-kelapa-gading-jakarta-utara/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-koja-jakarta-utara/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-larangan-kota-tangerang/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-leuwiliang-kab-bogor/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-leuwisadeng-kab-bogor/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-makasar-jakarta-timur/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-mampang-prapatan-jakarta-selatan/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-mandalajati-kota-bandung/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-matraman-jakarta-timur/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-medan-satria-kota-bekasi/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-menteng-jakarta-pusat/",
+    "/categories/pagar/distributor-pagar-panel-beton-di-muara-gembong-kab-bekasi/"
   ],
   "failed": {
     "/categories/culvert/jual-dan-pasang-box-culvert-di-abadijaya-depok/": 1,
@@ -417,8 +430,13 @@
     "/categories/pagar/distributor-pagar-panel-beton-di-kec-sukamulya-kab-tangerang/": 1,
     "/categories/pagar/distributor-pagar-panel-beton-di-kec-tigaraksa-kab-tangerang/": 1,
     "/categories/pagar/distributor-pagar-panel-beton-di-kelapa-gading-jakarta-utara/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-kemang-kab-bogor/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kemang-kab-bogor/": 2,
     "/categories/pagar/distributor-pagar-panel-beton-di-koja-jakarta-utara/": 1,
-    "/categories/pagar/distributor-pagar-panel-beton-di-kota-bandung/": 1
+    "/categories/pagar/distributor-pagar-panel-beton-di-kota-bandung/": 2,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kota-tangerang/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-kramat-jati-jakarta-timur/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-lengkong-kota-bandung/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-limo-depok/": 1,
+    "/categories/pagar/distributor-pagar-panel-beton-di-megamendung-kab-bogor/": 1
   }
 }
