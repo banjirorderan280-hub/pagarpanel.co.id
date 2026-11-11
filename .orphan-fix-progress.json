@@ -11,7 +11,11 @@
     "/categories/blog/harga-gorong-gorong-saluran-air/",
     "/categories/blog/harga-gorong-gorong-septic-tank/",
     "/categories/blog/harga-buis-beton-sumur-resapan/",
-    "/categories/blog/harga-pagar-precast-per-meter/"
+    "/categories/blog/harga-pagar-precast-per-meter/",
+    "/categories/blog/harga-pagar-arcon-per-meter/",
+    "/categories/blog/harga-tembok-beton-per-meter/",
+    "/categories/blog/harga-tiang-kolom-panel-beton/",
+    "/categories/blog/harga-tiang-pagar-kawat-duri/"
   ],
   "failed": {
     "/categories/blog/berat-u-ditch-beton/": 1,
@@ -32,10 +36,12 @@
     "/categories/blog/harga-gorong-gorong-30-cm/": 1,
     "/categories/blog/harga-gorong-gorong-beton-bulat/": 2,
     "/categories/blog/harga-gorong-gorong-setengah-lingkaran/": 2,
-    "/categories/blog/harga-buis-beton-setengah-lingkaran/": 1,
-    "/categories/blog/harga-gorong-gorong-u-ditch/": 1,
-    "/categories/blog/harga-gorong-gorong-ukuran-80/": 1,
+    "/categories/blog/harga-buis-beton-setengah-lingkaran/": 2,
+    "/categories/blog/harga-gorong-gorong-u-ditch/": 2,
+    "/categories/blog/harga-gorong-gorong-ukuran-80/": 2,
     "/categories/blog/harga-pagar-arcon-per-meter/": 1,
-    "/categories/blog/harga-panel-beton-per-lembar/": 1
+    "/categories/blog/harga-panel-beton-per-lembar/": 2,
+    "/categories/blog/harga-tutup-u-ditch-60x60/": 1,
+    "/categories/blog/harga-tutup-u-ditch-80x80x120/": 1
   }
 }
